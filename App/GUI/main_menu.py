@@ -1,11 +1,12 @@
 # Contains main menu function
 
 # Importing dependencies
-from tkinterdnd2 import DND_FILES
+from App.AppLib.config import Config
 import App.GUI.customtkinter as ctk
+from tkinterdnd2 import DND_FILES
+from tkinter import messagebox
 from tkinter import filedialog
 from functools import partial
-from App.AppLib.config import Config
 
 
 # _func class
@@ -65,7 +66,15 @@ def main_menu(app):
 
     # Detecting if the romfs_path is None
     if app.settings["romfs_path"] is None:
-        pass  # TODO: Stub
+
+        # Asking user to provide romfs path
+        continue_prompt = False
+        while not continue_prompt:
+            messagebox.showinfo("AINB-Toolbox Pop-up", "Please select your romfs folder.")
+            romfs_folder = filedialog.askdirectory(title="Select RomFS Folder Path")
+            if romfs_folder == "":
+                continue_prompt = messagebox.askyesno("AINB-Toolbox Pop-up",
+                                    "Do you want to continue without a romfs dump?\nThis will most likely cause a lot of errors in the future.")
 
     # Setting theme
     ctk.set_appearance_mode(app.settings["current_theme"])
