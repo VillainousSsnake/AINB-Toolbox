@@ -1,8 +1,8 @@
 # Contains main menu function
 
 # Importing dependencies
-import customtkinter as ctk
 from tkinterdnd2 import DND_FILES
+import App.GUI.customtkinter as ctk
 
 
 # _func class
@@ -44,6 +44,9 @@ def main_menu(app):
 
     dragAndDropTarget = ctk.CTkLabel(root, text="➕ \nDrag & Drop Here", corner_radius=10, fg_color="gray", wraplength=300)
     dragAndDropTarget.pack(expand=True, fill="both", padx=40, pady=40)
+
+    dragAndDropTarget.drop_target_register(DND_FILES)
+    dragAndDropTarget.dnd_bind("<<Drop>>", _Func.drop_file)
 
     # Root mainloop
     root.mainloop()
