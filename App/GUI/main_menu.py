@@ -147,7 +147,7 @@ def main_menu(app):
 
     romfs_path_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
-        text="Game Dump Location",
+        text="Game Dump Location                                                                        ",
         corner_radius=5, fg_color="#3B8ED0"
     )
     romfs_path_label.grid(row=0, column=0, padx=20, pady=10)
@@ -161,7 +161,7 @@ def main_menu(app):
 
     theme_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
-        text="Current Theme            ",
+        text="Current Theme                                                                                    ",
         corner_radius=5, fg_color="#3B8ED0"
     )
     theme_label.grid(row=1, column=0, padx=20, pady=10)
