@@ -45,8 +45,15 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
-    def romfs_path_browse_button_command(app):
-        pass  # TODO: Stub
+    def romfs_path_browse_button_command(app, romfs_path_entry):
+        romfs_path = filedialog.askdirectory(title="Select Tears of the Kingdom RomFS Folder")
+        if romfs_path == "":
+            return 0
+        else:
+            app.settings["romfs_path"] = romfs_path
+            Config.overwrite_setting("romfs_path", romfs_path)
+            romfs_path_entry.delete(0, "end")
+            romfs_path_entry.insert(0, romfs_path)
 
     @staticmethod
     def export_all_ainb_button_command(app):
@@ -182,7 +189,7 @@ def main_menu(app):
     romfs_path_entry.bind("<Return>", romfs_path_entry_command_partial)
     romfs_path_entry.bind("<Key>", romfs_path_entry_focus_partial)
 
-    romfs_browse_command = partial()
+    romfs_browse_command = partial(ButtonFunc.romfs_path_browse_button_command, app, romfs_path_entry)
     romfs_path_browse = ctk.CTkButton(
         tabview.tab("Settings"),
         text="Browse...", fg_color="grey",
