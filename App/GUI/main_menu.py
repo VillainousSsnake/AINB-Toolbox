@@ -45,6 +45,10 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def romfs_path_browse_button_command(app):
+        pass  # TODO: Stub
+
+    @staticmethod
     def export_all_ainb_button_command(app):
         pass  # TODO: Stub
 
@@ -177,6 +181,14 @@ def main_menu(app):
     romfs_path_entry_focus_partial = partial(_Func.focus_in_romfs_entry, romfs_path_label)
     romfs_path_entry.bind("<Return>", romfs_path_entry_command_partial)
     romfs_path_entry.bind("<Key>", romfs_path_entry_focus_partial)
+
+    romfs_browse_command = partial()
+    romfs_path_browse = ctk.CTkButton(
+        tabview.tab("Settings"),
+        text="Browse...", fg_color="grey",
+        command=romfs_browse_command,
+    )
+    romfs_path_browse.grid(row=0, column=3)
 
     theme_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
