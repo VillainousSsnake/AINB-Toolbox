@@ -7,11 +7,7 @@ import customtkinter as ctk
 # Button func
 class ButtonFunc:
     @staticmethod
-    def file_button_command():
-        pass  # TODO: Stub
-
-    @staticmethod
-    def settings_button_command():
+    def app_section_header_button_command():
         pass  # TODO: Stub
 
 
@@ -31,7 +27,12 @@ def main_menu(app):
     # Assigning the buttons on the tkinter window top bar
     root.protocol("WM_DELETE_WINDOW", on_close)
 
-    # TODO: Other code here
+    # Creating buttons
+    app_sections_header = ctk.CTkSegmentedButton(root,
+                                                 values=["Home", "AINB Editor", "Settings"],
+                                                 command=)
+    app_sections_header.set("Home")
+    app_sections_header.pack()
 
     # Root mainloop
     root.mainloop()
