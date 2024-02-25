@@ -176,7 +176,7 @@ def main_menu(app):
     romfs_path_entry_command_partial = partial(_Func.update_romfs_entry, app, romfs_path_entry, romfs_path_label)
     romfs_path_entry_focus_partial = partial(_Func.focus_in_romfs_entry, romfs_path_label)
     romfs_path_entry.bind("<Return>", romfs_path_entry_command_partial)
-    romfs_path_entry.bind("<FocusIn>", romfs_path_entry_focus_partial)
+    romfs_path_entry.bind("<Key>", romfs_path_entry_focus_partial)
 
     theme_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
