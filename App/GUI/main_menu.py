@@ -62,6 +62,15 @@ def main_menu(app):
     tabview.set("Home")
     tabview.pack(fill=ctk.BOTH)
 
+    #
+    #
+    #
+    #
+    #                      ########################
+    #                      #    "Home" SECTION    #
+    #                      ########################
+
+
     dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
                                      text="➕ \nDrag & Drop Here",
                                      corner_radius=10, fg_color="gray", wraplength=300)
@@ -72,6 +81,24 @@ def main_menu(app):
     dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
     drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, open_file, tabview)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
+
+    #
+    #
+    #
+    #
+    #                      ############################
+    #                      #    "Settings" SECTION    #
+    #                      ############################
+
+    romfs_path_label = ctk.CTkLabel(
+        master=tabview.tab("Settings"),
+        text="Game Dump Location",
+    )
+    romfs_path_label.place(x=50)
+
+    romfs_path_entry = ctk.CTkEntry(master=tabview.tab("Settings"),
+                                    placeholder_text="Eg. (D:\\Tears of the Kingdom\\romfs)")
+    romfs_path_entry.place(x=200)
 
     # Root mainloop
     root.mainloop()
