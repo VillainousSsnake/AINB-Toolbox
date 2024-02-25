@@ -8,8 +8,8 @@ import App.GUI.customtkinter as ctk
 # _func class
 class _Func:
     @staticmethod
-    def drop_file(event: str = None):
-        pass  # TODO: Stub
+    def drop_file(event):
+        print(event.data[1:len(event.data)-1])
 
 
 # Button func
