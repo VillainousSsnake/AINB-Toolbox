@@ -14,7 +14,7 @@ class _Func:
     @staticmethod
     def focus_in_romfs_entry(romfs_path_label, event=None):
         romfs_path_label.configure(
-            text="Game Dump Location*                                                                       "
+            text="Game Dump Location*                                                                      "
         )
 
     @staticmethod
@@ -84,7 +84,7 @@ def main_menu(app):
 
         # Asking user to provide romfs path
         continue_prompt = False
-        while not continue_prompt:
+        while continue_prompt is False:
             messagebox.showinfo("AINB-Toolbox Pop-up", "Please select your romfs folder.")
             romfs_folder = filedialog.askdirectory(title="Select RomFS Folder Path")
             if romfs_folder == "":
