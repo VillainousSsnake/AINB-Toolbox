@@ -9,7 +9,7 @@ import App.GUI.customtkinter as ctk
 class _Func:
     @staticmethod
     def drop_file(event):
-        print(event.data[1:len(event.data)-1])
+        filepath = event.data[1:len(event.data)-1]
 
 
 # Button func
