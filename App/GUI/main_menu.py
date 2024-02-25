@@ -12,8 +12,10 @@ from functools import partial
 # _func class
 class _Func:
     @staticmethod
-    def update_romfs_entry():
-        pass  # TODO: Stub
+    def update_romfs_entry(app, romfs_path_entry, event=None):
+        romfs_path = romfs_path_entry.get()
+        app.settings["romfs_path"] = romfs_path
+        Config.overwrite_setting("romfs_path", romfs_path)
 
     @staticmethod
     def update_theme_option_menu(theme_option_menu):
@@ -162,6 +164,8 @@ def main_menu(app):
     else:
         romfs_path_entry.insert(0, app.settings["romfs_path"])
     romfs_path_entry.grid(row=0, column=1, padx=20, pady=10)
+    romfs_path_entry_partial = partial(_Func.update_romfs_entry, app, romfs_path_entry)
+    romfs_path_entry.bind("<Return>", romfs_path_entry_partial)
 
     theme_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
