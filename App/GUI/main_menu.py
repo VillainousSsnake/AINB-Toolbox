@@ -75,6 +75,9 @@ def main_menu(app):
             if romfs_folder == "":
                 continue_prompt = messagebox.askyesno("AINB-Toolbox Pop-up",
                                     "Do you want to continue without a romfs dump?\nThis will most likely cause a lot of errors in the future.")
+            else:
+                app.settings["romfs_path"] = romfs_folder
+                Config.overwrite_setting("romfs_path", romfs_folder)
 
     # Setting theme
     ctk.set_appearance_mode(app.settings["current_theme"])
