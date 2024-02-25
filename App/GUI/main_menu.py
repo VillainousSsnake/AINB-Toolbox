@@ -227,5 +227,13 @@ def main_menu(app):
     _Func.update_theme_option_menu(theme_option_menu)
     theme_option_menu.grid(row=1, column=1, padx=20, pady=10)
 
+    #
+    #
+    #
+    #
+    #                      ###############################
+    #                      #    "AINB Editor" SECTION    #
+    #                      ###############################
+
     # Root mainloop
     root.mainloop()
