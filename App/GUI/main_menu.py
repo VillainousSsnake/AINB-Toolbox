@@ -11,6 +11,7 @@ class _Func:
     def drop_file(event: str = None):
         pass  # TODO: Stub
 
+
 # Button func
 class ButtonFunc:
     @staticmethod
