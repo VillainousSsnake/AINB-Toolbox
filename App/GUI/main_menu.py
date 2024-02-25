@@ -20,5 +20,7 @@ def main_menu(app):
     # Assigning the buttons on the tkinter window top bar
     root.protocol("WM_DELETE_WINDOW", on_close)
 
+    # TODO: Other code here
+
     # Root mainloop
     root.mainloop()
