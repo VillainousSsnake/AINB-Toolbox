@@ -12,6 +12,10 @@ from functools import partial
 # _func class
 class _Func:
     @staticmethod
+    def update_romfs_entry():
+        pass  # TODO: Stub
+
+    @staticmethod
     def update_theme_option_menu(theme_option_menu):
         match Config.get_setting("current_theme"):
             case "dark":
