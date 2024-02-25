@@ -30,7 +30,7 @@ def main_menu(app):
     # Creating buttons
     app_sections_header = ctk.CTkSegmentedButton(root,
                                                  values=["Home", "AINB Editor", "Settings"],
-                                                 command=)
+                                                 command=ButtonFunc.app_section_header_button_command)
     app_sections_header.set("Home")
     app_sections_header.pack()
 
