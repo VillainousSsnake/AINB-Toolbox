@@ -42,12 +42,8 @@ def main_menu(app):
     app_sections_header.set("Home")
     app_sections_header.pack()
 
-    label = ctk.CTkLabel(root, text="➕ \nDrag & Drop Here", corner_radius=10, fg_color="blue", wraplength=300)
+    label = ctk.CTkLabel(root, text="➕ \nDrag & Drop Here", corner_radius=10, fg_color="gray", wraplength=300)
     label.pack(expand=True, fill="both", padx=40, pady=40)
-
-    # Add this 2 lines to make it a dnd widget
-    label.drop_target_register(DND_FILES)
-    label.dnd_bind('<<Drop>>', drop)
 
     # Root mainloop
     root.mainloop()
