@@ -4,6 +4,13 @@
 import customtkinter as ctk
 
 
+# Button func
+class ButtonFunc:
+    @staticmethod
+    def file_button_command():
+        pass  # TODO: Stub
+
+
 # main_menu function
 def main_menu(app):
 
