@@ -102,7 +102,7 @@ def main_menu(app):
 
     dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
                                      text="➕ \nDrag & Drop Here",
-                                     corner_radius=10, fg_color="gray", wraplength=300)
+                                     corner_radius=10, wraplength=300)
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
     drop_partial = partial(_Func.drop_file, tabview, open_file)
