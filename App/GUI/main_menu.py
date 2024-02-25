@@ -51,14 +51,14 @@ def main_menu(app):
     root.protocol("WM_DELETE_WINDOW", on_close)
 
     # Creating tabview
-    tabview = ctk.CTkTabview(root)
+    tabview = ctk.CTkTabview(root, height=1000)
     tabview.add("Home")
     tabview.add("AINB Editor")
     tabview.add("Settings")
     tabview.set("Home")
     tabview.pack(fill=ctk.BOTH)
 
-    dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"),
+    dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
                                      text="➕ \nDrag & Drop Here",
                                      corner_radius=10, fg_color="gray", wraplength=300)
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
