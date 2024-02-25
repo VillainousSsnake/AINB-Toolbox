@@ -136,7 +136,7 @@ def main_menu(app):
     root.protocol("WM_DELETE_WINDOW", on_close)
 
     # Creating tabview
-    tabview = ctk.CTkTabview(root, height=1000, command=)
+    tabview = ctk.CTkTabview(root, height=1000, command=ButtonFunc.tabview_command)
     tabview.add("Home")
     tabview.add("AINB Editor")
     tabview.add("Settings")
