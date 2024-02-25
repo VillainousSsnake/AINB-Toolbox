@@ -10,6 +10,10 @@ class ButtonFunc:
     def file_button_command():
         pass  # TODO: Stub
 
+    @staticmethod
+    def settings_button_command():
+        pass  # TODO: Stub
+
 
 # main_menu function
 def main_menu(app):
