@@ -89,11 +89,11 @@ class Config:
             new_data[item.split(": ")[0]] = item.split(": ")[1]
 
         output = new_data[entry]
-        if output == 'true':
+        if output.lower() == 'true':
             output = True
-        if output == 'false':
+        if output.lower() == 'false':
             output = False
-        if output == 'none':
+        if output.lower() == 'none':
             output = None
 
         return output
