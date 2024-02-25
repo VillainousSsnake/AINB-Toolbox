@@ -27,7 +27,7 @@ def main_menu(app):
     # Assigning the buttons on the tkinter window top bar
     root.protocol("WM_DELETE_WINDOW", on_close)
 
-    # Creating buttons
+    # Creating app_sections_header button
     app_sections_header = ctk.CTkSegmentedButton(root,
                                                  values=["Home", "AINB Editor", "Settings"],
                                                  command=ButtonFunc.app_section_header_button_command)
