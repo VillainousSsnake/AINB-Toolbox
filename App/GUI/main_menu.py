@@ -4,19 +4,21 @@
 from tkinterdnd2 import DND_FILES
 import App.GUI.customtkinter as ctk
 from tkinter import filedialog
+from functools import partial
 
 
 # _func class
 class _Func:
     @staticmethod
-    def drop_file(event):
-        filepath = event.data[1:len(event.data)-1]
+    def drop_file(tabview, open_file, event=None):
+        open_file = event.data[1:len(event.data)-1]
+        tabview.set("AINB Editor")
 
 
 # Button func
 class ButtonFunc:
     @staticmethod
-    def drag_and_drop_button_command(event=None):
+    def drag_and_drop_button_command(tabview, open_file, event=None):
 
         supportedFileFormats = (
             (
@@ -27,7 +29,9 @@ class ButtonFunc:
             ('AI Node Binary', '*.ainb')
         )
 
-        filepath = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
+        open_file = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
+
+        tabview.set("AINB Editor")
 
 
 # main_menu function
@@ -63,9 +67,11 @@ def main_menu(app):
                                      corner_radius=10, fg_color="gray", wraplength=300)
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
+    drop_partial = partial(_Func.drop_file, tabview, open_file)
     dragAndDropTarget.drop_target_register(DND_FILES)
-    dragAndDropTarget.dnd_bind("<<Drop>>", _Func.drop_file)
-    dragAndDropTarget.bind("<1>", ButtonFunc.drag_and_drop_button_command)
+    dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
+    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, open_file, tabview)
+    dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
     # Root mainloop
     root.mainloop()
