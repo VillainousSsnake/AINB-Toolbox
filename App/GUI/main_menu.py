@@ -29,6 +29,10 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def export_all_ainb_button_command(app):
+        pass  # TODO: Stub
+
+    @staticmethod
     def theme_option_menu_button_command(app, appearance):
         ctk.set_appearance_mode(appearance.lower())
         app.settings["current_theme"] = appearance.lower()
@@ -106,6 +110,12 @@ def main_menu(app):
     dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
     drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, open_file)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
+
+    export_all_ainb_button_partial = partial(ButtonFunc.export_all_ainb_button_command, app)
+    export_all_ainb_button = ctk.CTkButton(master=tabview.tab("Home"),
+                                           text="Extract all AINB from RomFS Dump",
+                                           command=export_all_ainb_button_partial)
+    export_all_ainb_button.pack()
 
     #
     #
