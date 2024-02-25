@@ -7,7 +7,7 @@ import customtkinter as ctk
 # Button func
 class ButtonFunc:
     @staticmethod
-    def app_section_header_button_command(event: str = None):
+    def app_section_header_button_command(value: str = None):
         pass  # TODO: Stub
 
 
