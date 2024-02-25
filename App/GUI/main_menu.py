@@ -63,6 +63,10 @@ class ButtonFunc:
 # main_menu function
 def main_menu(app):
 
+    # Detecting if the romfs_path is None
+    if app.settings["romfs_path"] is None:
+        pass  # TODO: Stub
+
     # Setting theme
     ctk.set_appearance_mode(app.settings["current_theme"])
 
