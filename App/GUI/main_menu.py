@@ -1,7 +1,7 @@
 # Contains main menu function
 
 # Importing dependencies
-import tkinter as tk
+import customtkinter as ctk
 
 
 # main_menu function
