@@ -7,4 +7,7 @@ from App.AppLib.index import Index
 app = App()
 
 while app.returnStatement != "exit":
-    pass  # Your code here
+
+    match app.returnStatement:
+        case "main":
+            Index.main_menu(app)
