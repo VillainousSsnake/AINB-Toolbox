@@ -31,7 +31,7 @@ class ButtonFunc:
 
         fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
 
-        if fp == "":
+        if fp is None:
             return 1
 
         open_file = fp
@@ -84,7 +84,7 @@ def main_menu(app):
     drop_partial = partial(_Func.drop_file, tabview, open_file)
     dragAndDropTarget.drop_target_register(DND_FILES)
     dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
-    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, open_file, tabview)
+    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, open_file)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
     #
