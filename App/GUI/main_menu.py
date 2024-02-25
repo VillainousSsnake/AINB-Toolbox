@@ -125,23 +125,26 @@ def main_menu(app):
     #                      #    "Settings" SECTION    #
     #                      ############################
 
+    root.columnconfigure(0, weight=1)
+    root.columnconfigure(1, weight=3)
+
     romfs_path_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
         text="Game Dump Location",
         corner_radius=5, fg_color="#3B8ED0"
     )
-    romfs_path_label.place(x=50)
+    romfs_path_label.grid(row=0, column=0, padx=20, pady=10)
 
     romfs_path_entry = ctk.CTkEntry(master=tabview.tab("Settings"),
                                     placeholder_text="Eg. (D:\\Tears of the Kingdom\\romfs)")
-    romfs_path_entry.pack()
+    romfs_path_entry.grid(row=0, column=1)
 
     theme_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
         text="Current Theme            ",
         corner_radius=5, fg_color="#3B8ED0"
     )
-    theme_label.place(x=50, y=50)
+    theme_label.grid(row=1, column=0)
 
     theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app)
     theme_option_menu = ctk.CTkOptionMenu(
@@ -150,7 +153,7 @@ def main_menu(app):
         command=theme_option_menu_command
     )
     _Func.update_theme_option_menu(theme_option_menu)
-    theme_option_menu.pack(pady=20)
+    theme_option_menu.grid(row=1, column=1)
 
     # Root mainloop
     root.mainloop()

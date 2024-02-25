@@ -5,7 +5,8 @@
 import os
 
 # Creating default_settings
-default_settings = '''current_theme: Dark'''  # Default settings variable
+default_settings = '''current_theme: Dark
+romfs_path: None'''  # Default settings variable
 
 
 class Config:
@@ -40,11 +41,11 @@ class Config:
             output = {}
 
             for key in new_data:
-                if new_data[key] == 'true':
+                if new_data[key].lower() == 'true':
                     output[key] = True
-                elif new_data[key] == 'false':
+                elif new_data[key].lower() == 'false':
                     output[key] = False
-                elif new_data[key] == 'none':
+                elif new_data[key].lower() == 'none':
                     output[key] = False
                 else:
                     output[key] = new_data[key]
