@@ -45,6 +45,10 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def tabview_command():
+        pass  # TODO: Stub
+
+    @staticmethod
     def romfs_path_browse_button_command(app, romfs_path_entry):
         romfs_path = filedialog.askdirectory(title="Select Tears of the Kingdom RomFS Folder")
         if romfs_path == "":
@@ -132,7 +136,7 @@ def main_menu(app):
     root.protocol("WM_DELETE_WINDOW", on_close)
 
     # Creating tabview
-    tabview = ctk.CTkTabview(root, height=1000)
+    tabview = ctk.CTkTabview(root, height=1000, command=)
     tabview.add("Home")
     tabview.add("AINB Editor")
     tabview.add("Settings")
