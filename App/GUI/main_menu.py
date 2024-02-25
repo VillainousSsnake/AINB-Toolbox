@@ -60,10 +60,15 @@ class ButtonFunc:
         pass  # TODO: Stub
 
     @staticmethod
-    def theme_option_menu_button_command(app, appearance):
+    def theme_option_menu_button_command(app, dragAndDropTarget, appearance):
         ctk.set_appearance_mode(appearance.lower())
         app.settings["current_theme"] = appearance.lower()
         Config.overwrite_setting("current_theme", appearance.lower())
+
+        if ctk.get_appearance_mode() == "Dark":
+            dragAndDropTarget.configure(fg_color="#242424")
+        else:
+            dragAndDropTarget.configure(fg_color="#EBEBEB")
 
     @staticmethod
     def drag_and_drop_button_command(tabview, open_file, event=None):
@@ -146,6 +151,10 @@ def main_menu(app):
     dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
                                      text="➕ \nDrag & Drop Here",
                                      corner_radius=10, wraplength=300)
+    if ctk.get_appearance_mode() == "Dark":
+        dragAndDropTarget.configure(fg_color="#242424")
+    else:
+        dragAndDropTarget.configure(fg_color="#EBEBEB")
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
     drop_partial = partial(_Func.drop_file, tabview, open_file)
@@ -204,7 +213,7 @@ def main_menu(app):
     )
     theme_label.grid(row=1, column=0, padx=20, pady=10)
 
-    theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app)
+    theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app, dragAndDropTarget)
     theme_option_menu = ctk.CTkOptionMenu(
         master=tabview.tab("Settings"),
         values=["Dark", "Light", "System"],
