@@ -11,4 +11,5 @@ class App:
         self.returnStatement = "main"
         self.settings = {
             "current_theme": Config.get_setting("current_theme"),
+            "romfs_path": Config.get_setting("romfs_path"),
         }
