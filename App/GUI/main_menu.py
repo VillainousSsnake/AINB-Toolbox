@@ -7,6 +7,7 @@ from tkinterdnd2 import DND_FILES
 from tkinter import messagebox
 from tkinter import filedialog
 from functools import partial
+from App.FFLib.AINB import AINB
 
 
 # _func class
