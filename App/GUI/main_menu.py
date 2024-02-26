@@ -346,6 +346,8 @@ def main_menu(app):
     )
     CodeBox.pack(fill="both", pady=50)
     variables["CodeBox"] = CodeBox
+    CodeBox.drop_target_register(DND_FILES)
+    CodeBox.dnd_bind("<<Drop>>", drop_partial)
 
     # Creating save button
     save_ainb_button_command = partial(ButtonFunc.save_ainb_button_command, variables, CodeBox)
