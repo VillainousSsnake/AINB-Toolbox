@@ -57,7 +57,13 @@ def json_to_ainb(input_, mode='d', out_path=None):  # Converts input JSON file t
 
         case "d":
 
-            data = input_
+            temp_dir = tempfile.TemporaryDirectory()
+
+            with open(temp_dir.name + "file.json", "w") as f_out:
+                f_out.write(input_)
+
+            with open(temp_dir.name + "file.json", "rb") as f_in:
+                data = json.load(f_in)
 
             file = ainb.AINB(data, from_dict=True)
             temp_dir = tempfile.TemporaryDirectory()

@@ -70,12 +70,20 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
-    def save_ainb_button_command(variables, codeview):
-        pass  # TODO: Stub
+    def save_ainb_button_command(variables, code_view):
+
+        # Getting the code_contents
+        code_contents = code_view.get("1.0", "end-1c")
+
+        # Converting the file
+        ainb_data = AINB.json_to_ainb(code_contents)
+
+        # File output
+        print(ainb_data)
 
     @staticmethod
-    def export_ainb_button_command(variables, codeview):
-        pass  # TODO: Stub
+    def export_ainb_button_command(variables, code_view):
+        code_contents = code_view.get("1.0", "end-1c")
 
     @staticmethod
     def tabview_command(tabview, variables):
@@ -287,7 +295,7 @@ def main_menu(app):
     variables["CodeBox"] = CodeBox
 
     # Creating save button
-    save_ainb_button_command = partial(ButtonFunc.export_ainb_button_command, variables, CodeBox)
+    save_ainb_button_command = partial(ButtonFunc.save_ainb_button_command, variables, CodeBox)
     save_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Save",
                                      command=save_ainb_button_command)
     save_ainb_button.place(x=0, y=0)

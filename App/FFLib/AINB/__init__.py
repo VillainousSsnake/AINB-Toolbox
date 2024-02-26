@@ -20,14 +20,6 @@ class AINB:
 
                 self.json = conv.ainb_to_json(self.data, 'd')
 
-    def json_to_ainb(self, input_, mode='d'):
-
-        match mode:
-
-            case 'd':
-
-                pass  # TODO: Stub
-
-            case 'fp':
-
-                pass  # TODO: Stub
+    @staticmethod
+    def json_to_ainb(json_data):
+        return conv.json_to_ainb(json_data, 'd')
