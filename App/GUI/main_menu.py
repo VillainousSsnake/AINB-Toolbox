@@ -1,4 +1,5 @@
 # Contains main menu function
+import os.path
 
 # Importing dependencies
 from App.AppLib.config import Config
@@ -10,6 +11,16 @@ from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
 import chlorophyll
+
+# Supported file formats variable
+supportedFileFormats = (
+    (
+        'All Editable Files', [
+            '*.ainb'
+        ]
+    ),
+    ('AI Node Binary', '*.ainb')
+)
 
 
 # _func class
@@ -72,14 +83,36 @@ class ButtonFunc:
     @staticmethod
     def save_ainb_button_command(variables, code_view):
 
+        # Asking out filepath if there is no file
+        if variables["open_file"] is None:
+            messagebox.showinfo("AINB-Toolbox Pop-up", "Please select file path to save as.")
+            variables["open_file"] = filedialog.asksaveasfile(
+                title="Save as...",
+                filetypes=(
+                    ("AI Node Binary", "*ainb"),
+                    ("All Files", "*")
+                )
+            )
+
         # Getting the code_contents
         code_contents = code_view.get("1.0", "end-1c")
 
         # Converting the file
         ainb_data = AINB.json_to_ainb(code_contents)
 
-        # File output
-        print(ainb_data)
+        # Message pop-up
+        continuePopup = messagebox.askokcancel(
+            "AINB-Toolbox Pop-up",
+            "Saving will overwrite the file, do you want to continue?"
+        )
+
+        # Quiting or continuing based on the pop-up outcome
+        if continuePopup is False:
+            return 0
+
+        # Writing file
+        with open(variables["open_file"], "wb") as f_out:
+            f_out.write(ainb_data)
 
     @staticmethod
     def export_ainb_button_command(variables, code_view):
@@ -117,15 +150,6 @@ class ButtonFunc:
 
     @staticmethod
     def drag_and_drop_button_command(tabview, variables, event=None):
-
-        supportedFileFormats = (
-            (
-                'All Editable Files', [
-                    '*.ainb'
-                ]
-            ),
-            ('AI Node Binary', '*.ainb')
-        )
 
         fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
 
