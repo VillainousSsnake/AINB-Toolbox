@@ -1,6 +1,8 @@
 # Contains main menu function
+import pathlib
 
 # Importing dependencies
+from App.FFLib.custom_sarc import Sarc
 from App.AppLib.config import Config
 import App.GUI.customtkinter as ctk
 from tkinterdnd2 import DND_FILES
@@ -10,7 +12,9 @@ from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
 import chlorophyll
+import zstandard
 import os.path
+import oead
 
 # Supported file formats variable
 supportedFileFormats = (
@@ -159,8 +163,41 @@ class ButtonFunc:
             romfs_path_entry.insert(0, romfs_path)
 
     @staticmethod
-    def export_all_ainb_button_command(app):
-        pass  # TODO: Stub
+    def export_all_ainb_button_command(variables):
+
+        counter = 0
+
+        messagebox.showinfo("AINB-Extract-Tool Version 1.0", "Please select your output path")
+        output_folder = filedialog.askdirectory(title="Output export directory")
+
+        toplevel = ctk.CTkToplevel()
+
+        progressbar = ctk.CTkProgressBar(master=toplevel, orientation='horizontal', mode='determinate')
+        progressbar.pack(side="top")
+        progressbar.start()
+        progressLabel = ctk.CTkLabel(master=toplevel, text="0%")
+        progressLabel.pack(side="top")
+
+        if not os.path.exists(output_folder + "/AI"):
+            os.mkdir(output_folder + "\\AI")
+
+        for file in os.listdir(str(variables["romfs_path"]) + "\\Pack\\Actor"):
+
+            decom = zstandard.ZstdDecompressor(
+                dict_data=zstandard.ZstdCompressionDict(Sarc.get_zsdic_data(".pack", variables["romfs_path"])))
+
+            archive = oead.Sarc(decom.decompress(pathlib.Path(os.path.join(variables["romfs_path"] + "\\Pack\\Actor", file)).read_bytes()))
+
+            for _file in archive.get_files():
+
+                if _file.name.endswith(".ainb"):
+
+                    with open(os.path.join(output_folder, _file.name), "wb") as outfile:
+                        outfile.write(bytes(_file.data))
+
+                    counter += 1
+                    progressbar.step()
+                    progressLabel.config(text=str(counter / 131.42)[:4] + "%")
 
     @staticmethod
     def theme_option_menu_button_command(app, dragAndDropTarget, appearance):
@@ -269,7 +306,7 @@ def main_menu(app):
     drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
-    export_all_ainb_button_partial = partial(ButtonFunc.export_all_ainb_button_command, app)
+    export_all_ainb_button_partial = partial(ButtonFunc.export_all_ainb_button_command, variables)
     export_all_ainb_button = ctk.CTkButton(master=tabview.tab("Home"),
                                            text="Extract all AINB from RomFS Dump",
                                            command=export_all_ainb_button_partial)
