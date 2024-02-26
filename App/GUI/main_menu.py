@@ -38,15 +38,16 @@ class _Func:
                 theme_option_menu.set("System")
 
     @staticmethod
-    def drop_file(tabview, open_file, event=None):
-        open_file = event.data[1:len(event.data)-1]
+    def drop_file(tabview, variables, event=None):
+        variables["open_file"] = str(event.data)
         tabview.set("AINB Editor")
 
 
 # Button func
 class ButtonFunc:
     @staticmethod
-    def tabview_command():
+    def tabview_command(tabview, variables):
+        print(variables)
         pass  # TODO: Stub
 
     @staticmethod
@@ -76,7 +77,7 @@ class ButtonFunc:
             dragAndDropTarget.configure(fg_color="#EBEBEB")
 
     @staticmethod
-    def drag_and_drop_button_command(tabview, open_file, event=None):
+    def drag_and_drop_button_command(tabview, variables, event=None):
 
         supportedFileFormats = (
             (
@@ -87,12 +88,12 @@ class ButtonFunc:
             ('AI Node Binary', '*.ainb')
         )
 
-        fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
+        fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats).name
 
         if fp is None:
             return 1
 
-        open_file = fp
+        variables["open_file"] = fp
 
         tabview.set("AINB Editor")
 
@@ -120,8 +121,9 @@ def main_menu(app):
     ctk.set_appearance_mode(app.settings["current_theme"])
 
     # Creating variables
-    open_file = None
-    file_specs = None
+    variables = {
+        "open_file": None
+    }
 
     # Creating root window
     root = ctk.CTk()
@@ -137,7 +139,9 @@ def main_menu(app):
     root.protocol("WM_DELETE_WINDOW", on_close)
 
     # Creating tabview
-    tabview = ctk.CTkTabview(root, height=1000, command=ButtonFunc.tabview_command)
+    tabview = ctk.CTkTabview(root, height=1000)
+    tabview_command = partial(ButtonFunc.tabview_command, tabview, variables)
+    tabview.configure(command=tabview_command)
     tabview.add("Home")
     tabview.add("AINB Editor")
     tabview.add("Settings")
@@ -162,10 +166,10 @@ def main_menu(app):
         dragAndDropTarget.configure(fg_color="#EBEBEB")
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
-    drop_partial = partial(_Func.drop_file, tabview, open_file)
+    drop_partial = partial(_Func.drop_file, tabview, variables)
     dragAndDropTarget.drop_target_register(DND_FILES)
     dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
-    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, open_file)
+    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
     export_all_ainb_button_partial = partial(ButtonFunc.export_all_ainb_button_command, app)
