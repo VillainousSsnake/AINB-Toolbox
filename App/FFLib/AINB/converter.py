@@ -59,14 +59,15 @@ def json_to_ainb(input_, mode='d', out_path=None):  # Converts input JSON file t
 
             temp_dir = tempfile.TemporaryDirectory()
 
-            with open(temp_dir.name + "file.json", "w") as f_out:
+            with open(temp_dir.name + "file.json", "w", encoding="utf-8") as f_out:
                 f_out.write(input_)
 
             with open(temp_dir.name + "file.json", "rb") as f_in:
                 data = json.load(f_in)
 
+            temp_dir.cleanup()
+
             file = ainb.AINB(data, from_dict=True)
-            temp_dir = tempfile.TemporaryDirectory()
 
             with open(temp_dir.name + "file.ainb", 'wb') as outfile:
                 file.ToBytes(file, outfile)
