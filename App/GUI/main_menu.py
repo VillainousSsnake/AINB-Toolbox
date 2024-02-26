@@ -92,7 +92,7 @@ class ButtonFunc:
                     ("AI Node Binary", "*ainb"),
                     ("All Files", "*")
                 )
-            )
+            ).name
 
         # Getting the code_contents
         code_contents = code_view.get("1.0", "end-1c")
@@ -116,7 +116,36 @@ class ButtonFunc:
 
     @staticmethod
     def export_ainb_button_command(variables, code_view):
+
+        # Asking out filepath
+        messagebox.showinfo("AINB-Toolbox Pop-up", "Please select file path to save as.")
+        path_out = filedialog.asksaveasfile(
+            title="Save as...",
+            filetypes=(
+                ("AI Node Binary", "*ainb"),
+                ("All Files", "*")
+            )
+        ).name
+
+        # Getting the code_contents
         code_contents = code_view.get("1.0", "end-1c")
+
+        # Converting the file
+        ainb_data = AINB.json_to_ainb(code_contents)
+
+        # Message pop-up
+        continuePopup = messagebox.askokcancel(
+            "AINB-Toolbox Pop-up",
+            "Saving will overwrite the file, do you want to continue?"
+        )
+
+        # Quiting or continuing based on the pop-up outcome
+        if continuePopup is False:
+            return 0
+
+        # Writing file
+        with open(path_out, "wb") as f_out:
+            f_out.write(ainb_data)
 
     @staticmethod
     def tabview_command(tabview, variables):
