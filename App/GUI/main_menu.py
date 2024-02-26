@@ -70,6 +70,14 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def save_ainb_button_command():
+        pass  # TODO: Stub
+
+    @staticmethod
+    def export_ainb_button_command():
+        pass  # TODO: Stub
+
+    @staticmethod
     def tabview_command(tabview, variables):
         _Func.update_ainb_editor(variables)
 
@@ -271,11 +279,20 @@ def main_menu(app):
     #                      #    "AINB Editor" SECTION    #
     #                      ###############################
 
+    # Creating save button
+    save_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Save")
+    save_ainb_button.place(x=0, y=0)
+
+    # Creating export button
+    export_ainb_button_command = partial
+    export_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Export")
+    export_ainb_button.place(x=150, y=0)
+
     # Creating and configuring the CodeView
     CodeBox = chlorophyll.CodeView(
         master=tabview.tab("AINB Editor"), lexer=pygments.lexers.data.JsonLexer, color_scheme="dracula", height=1000,
     )
-    CodeBox.pack(fill="both")
+    CodeBox.pack(fill="both", pady=50)
     variables["CodeBox"] = CodeBox
 
     # Updating to ainb_editor
