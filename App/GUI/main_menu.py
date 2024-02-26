@@ -47,7 +47,6 @@ class _Func:
 class ButtonFunc:
     @staticmethod
     def tabview_command(tabview, variables):
-        print(variables)
         pass  # TODO: Stub
 
     @staticmethod
