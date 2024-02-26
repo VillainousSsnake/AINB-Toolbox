@@ -4,14 +4,27 @@
 from App.AppLib.config import Config
 import App.GUI.customtkinter as ctk
 from tkinterdnd2 import DND_FILES
+from App.FFLib.AINB import AINB
 from tkinter import messagebox
 from tkinter import filedialog
 from functools import partial
-from App.FFLib.AINB import AINB
+import pygments.lexers.data
+import chlorophyll
 
 
 # _func class
 class _Func:
+    @staticmethod
+    def update_ainb_editor(variables):
+
+        if variables["open_file"] is None:
+            variables["CodeBox"].delete(0.0, "end")
+            return 0
+
+        CodeBox = variables["CodeBox"]
+        file = AINB(variables["open_file"], 'fp')
+        CodeBox.insert(0.0, file.json)
+
     @staticmethod
     def focus_in_romfs_entry(romfs_path_label, event=None):
         romfs_path_label.configure(
@@ -39,7 +52,18 @@ class _Func:
 
     @staticmethod
     def drop_file(tabview, variables, event=None):
-        variables["open_file"] = str(event.data)
+        variables["open_file"] = str(event.data[1:len(event.data)-1])
+
+        if variables["open_file"] is not None:
+            continueQuitPopup = messagebox.askokcancel(
+                title="AINB-Toolbox Popup",
+                message="Opening this file will get rid of the last file you were editing.\nDo you want to continue?"
+            )
+
+            if continueQuitPopup is False:
+                return 0
+
+        _Func.update_ainb_editor(variables)
         tabview.set("AINB Editor")
 
 
@@ -47,7 +71,7 @@ class _Func:
 class ButtonFunc:
     @staticmethod
     def tabview_command(tabview, variables):
-        pass  # TODO: Stub
+        _Func.update_ainb_editor(variables)
 
     @staticmethod
     def romfs_path_browse_button_command(app, romfs_path_entry):
@@ -92,8 +116,17 @@ class ButtonFunc:
         if fp is None:
             return 1
 
+        if variables["open_file"] is not None:
+            continueQuitPopup = messagebox.askokcancel(
+                title="AINB-Toolbox Popup",
+                message="Opening this file will get rid of the last file you were editing.\nDo you want to continue?"
+            )
+            if continueQuitPopup is False:
+                return 0
+
         variables["open_file"] = fp.name
 
+        _Func.update_ainb_editor(variables)
         tabview.set("AINB Editor")
 
 
@@ -238,7 +271,15 @@ def main_menu(app):
     #                      #    "AINB Editor" SECTION    #
     #                      ###############################
 
-    # todo: Add code here
+    # Creating and configuring the CodeView
+    CodeBox = chlorophyll.CodeView(
+        master=tabview.tab("AINB Editor"), lexer=pygments.lexers.data.JsonLexer, color_scheme="dracula", height=1000,
+    )
+    CodeBox.pack(fill="both")
+    variables["CodeBox"] = CodeBox
+
+    # Updating to ainb_editor
+    _Func.update_ainb_editor(variables)
 
     # Root mainloop
     root.mainloop()
