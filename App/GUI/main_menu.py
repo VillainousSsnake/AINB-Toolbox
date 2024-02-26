@@ -87,12 +87,12 @@ class ButtonFunc:
             ('AI Node Binary', '*.ainb')
         )
 
-        fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats).name
+        fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
 
         if fp is None:
             return 1
 
-        variables["open_file"] = fp
+        variables["open_file"] = fp.name
 
         tabview.set("AINB Editor")
 
