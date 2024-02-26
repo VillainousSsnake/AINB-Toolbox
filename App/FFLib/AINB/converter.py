@@ -6,14 +6,14 @@ import sys
 import os
 
 
-def ainb_to_json(input, mode="d"): # Converts input AINB file to JSON
+def ainb_to_json(input_, mode="d"): # Converts input AINB file to JSON
     data = None
     match mode:
         case "fp":
-            with open(input, 'rb') as f_in:
+            with open(input_, 'rb') as f_in:
                 data = f_in.read()
         case "d":
-            data = input
+            data = input_
     file = ainb.AINB(data)
     temp_dir = tempfile.TemporaryDirectory()
     with open(os.path.join(temp_dir.name, "file.json"), 'w', encoding='utf-8') as outfile:
@@ -24,23 +24,23 @@ def ainb_to_json(input, mode="d"): # Converts input AINB file to JSON
     return output
 
 
-def json_to_ainb(input, mode='d', out=None):  # Converts input JSON file to AINB
+def json_to_ainb(input_, mode='d', out_path=None):  # Converts input JSON file to AINB
 
     match mode:
 
         case "fout":
 
-            with open(input, 'r', encoding='utf-8') as f_in:
+            with open(input_, 'r', encoding='utf-8') as f_in:
                 data = json.load(f_in)
 
             file = ainb.AINB(data, from_dict=True)
 
-            with open(out + file.filename + ".ainb", 'wb') as outfile:
+            with open(out_path + file.filename + ".ainb", 'wb') as outfile:
                 file.ToBytes(file, outfile)
 
         case "fp":
 
-            with open(input, 'r', encoding='utf-8') as f_in:
+            with open(input_, 'r', encoding='utf-8') as f_in:
                 data = json.load(f_in)
 
             file = ainb.AINB(data, from_dict=True)
@@ -57,7 +57,7 @@ def json_to_ainb(input, mode='d', out=None):  # Converts input JSON file to AINB
 
         case "d":
 
-            data = input
+            data = input_
 
             file = ainb.AINB(data, from_dict=True)
             temp_dir = tempfile.TemporaryDirectory()
