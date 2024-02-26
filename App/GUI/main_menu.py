@@ -1,5 +1,4 @@
 # Contains main menu function
-import os.path
 
 # Importing dependencies
 from App.AppLib.config import Config
@@ -11,6 +10,7 @@ from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
 import chlorophyll
+import os.path
 
 # Supported file formats variable
 supportedFileFormats = (
@@ -114,6 +114,9 @@ class ButtonFunc:
         with open(variables["open_file"], "wb") as f_out:
             f_out.write(ainb_data)
 
+        # Output Pop-up
+        messagebox.showinfo("AINB-Toolbox Pop-up", "Export successful!\nFile Exported to: " + variables["open_file"])
+
     @staticmethod
     def export_ainb_button_command(variables, code_view):
 
@@ -133,19 +136,12 @@ class ButtonFunc:
         # Converting the file
         ainb_data = AINB.json_to_ainb(code_contents)
 
-        # Message pop-up
-        continuePopup = messagebox.askokcancel(
-            "AINB-Toolbox Pop-up",
-            "Saving will overwrite the file, do you want to continue?"
-        )
-
-        # Quiting or continuing based on the pop-up outcome
-        if continuePopup is False:
-            return 0
-
         # Writing file
         with open(path_out, "wb") as f_out:
             f_out.write(ainb_data)
+
+        # Output Pop-up
+        messagebox.showinfo("AINB-Toolbox Pop-up", "Export successful!\nFile Exported to: " + path_out)
 
     @staticmethod
     def tabview_command(tabview, variables):
