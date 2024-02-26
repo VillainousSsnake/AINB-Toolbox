@@ -8,4 +8,8 @@ class AINB:
         match mode:
             case 'd':
                 self.data = input_
-                self.json = conv.ainb_to_json(input_, mode)
+                self.json = conv.ainb_to_json(input_, 'd')
+            case 'fp':
+                with open(input_, "rb") as f_in:
+                    self.data = f_in.read()
+                self.json = conv.ainb_to_json(self.data, 'd')
