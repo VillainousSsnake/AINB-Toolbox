@@ -3,8 +3,7 @@
 # Importing dependencies
 from App.FFLib.custom_sarc import Sarc
 from App.AppLib.config import Config
-import App.GUI.customtkinter as ctk
-from tkinterdnd2 import DND_FILES
+import customtkinter as ctk
 from App.FFLib.AINB import AINB
 from tkinter import messagebox
 from tkinter import filedialog
@@ -311,8 +310,6 @@ def main_menu(app):
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
     drop_partial = partial(_Func.drop_file, tabview, variables)
-    dragAndDropTarget.drop_target_register(DND_FILES)
-    dragAndDropTarget.dnd_bind("<<Drop>>", drop_partial)
     drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
@@ -389,8 +386,6 @@ def main_menu(app):
     )
     CodeBox.pack(fill="both", pady=50)
     variables["CodeBox"] = CodeBox
-    CodeBox.drop_target_register(DND_FILES)
-    CodeBox.dnd_bind("<<Drop>>", drop_partial)
 
     # Creating save button
     save_ainb_button_command = partial(ButtonFunc.save_ainb_button_command, variables, CodeBox)
