@@ -1,8 +1,13 @@
 # AINB-Toolbox
 This is an all-in-one app for AINB files. Part of 0x1de NX, to learn more go here: https://villainousssnake.wixsite.com/0x1de-nx
 
+I used a modified version of dt-12345's AINB library, so here is a link to his GitHub account: https://github.com/dt-12345
+
+## Latest release:
+https://github.com/VillainousSsnake/AINB-Toolbox/releases/tag/v0.1.0
+
 ## Features
-- ***AINB File Editor (JSON)***: This opens an AINB file like a JSON file, then when it is time to save/export, it reserializes the file as an AINB file.
+- ***AINB File Editor (JSON)***: This opens an AINB file like a JSON file, and then when it is time to save/export, it reserializes the file as an AINB file.
 - ***AINB File Extractor***: This extracts all the AINB files from a RomFS game dump of Zelda: Tears of the Kingdom, and writes them all into one folder. This is mainly just a quality-of-life feature and it makes it convenient to search for AINB files in File Explorer.
 
 ## Planned Features
