@@ -1,4 +1,4 @@
-# App/main.py
+# App/AINB-Toolbox.py
 # Holds main program code
 
 # Importing modules
