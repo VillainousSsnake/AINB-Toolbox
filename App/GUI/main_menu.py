@@ -1,5 +1,4 @@
 # Contains main menu function
-import pathlib
 
 # Importing dependencies
 from App.FFLib.custom_sarc import Sarc
@@ -15,6 +14,7 @@ from tkinter import ttk
 import chlorophyll
 import zstandard
 import os.path
+import pathlib
 import oead
 
 # Supported file formats variable
@@ -31,13 +31,14 @@ supportedFileFormats = (
 # _func class
 class _Func:
     @staticmethod
-    def update_ainb_editor(variables):
+    def update_ainb_editor(variables, delete=True):
 
         if variables["open_file"] is None:
             variables["CodeBox"].delete(0.0, "end")
             return 0
 
         CodeBox = variables["CodeBox"]
+        CodeBox.delete(0.0, "end")
         file = AINB(variables["open_file"], 'fp')
         CodeBox.insert(0.0, file.json)
 
@@ -79,7 +80,7 @@ class _Func:
             if continueQuitPopup is False:
                 return 0
 
-        _Func.update_ainb_editor(variables)
+        _Func.update_ainb_editor(variables, True)
         tabview.set("AINB Editor")
 
 
@@ -237,7 +238,7 @@ class ButtonFunc:
 
         variables["open_file"] = fp.name
 
-        _Func.update_ainb_editor(variables)
+        _Func.update_ainb_editor(variables, True)
         tabview.set("AINB Editor")
 
 
