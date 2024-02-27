@@ -30,7 +30,7 @@ supportedFileFormats = (
 # _func class
 class _Func:
     @staticmethod
-    def update_ainb_editor(variables, delete=True):
+    def update_ainb_editor(variables):
 
         if variables["open_file"] is None:
             variables["CodeBox"].delete(0.0, "end")
@@ -79,7 +79,7 @@ class _Func:
             if continueQuitPopup is False:
                 return 0
 
-        _Func.update_ainb_editor(variables, True)
+        _Func.update_ainb_editor(variables)
         tabview.set("AINB Editor")
 
 
@@ -123,7 +123,7 @@ class ButtonFunc:
         messagebox.showinfo("AINB-Toolbox Pop-up", "Export successful!\nFile Exported to: " + variables["open_file"])
 
     @staticmethod
-    def export_ainb_button_command(variables, code_view):
+    def export_ainb_button_command(code_view):
 
         # Asking out filepath
         messagebox.showinfo("AINB-Toolbox Pop-up", "Please select file path to save as.")
@@ -149,7 +149,7 @@ class ButtonFunc:
         messagebox.showinfo("AINB-Toolbox Pop-up", "Export successful!\nFile Exported to: " + path_out)
 
     @staticmethod
-    def tabview_command(tabview, variables):
+    def tabview_command(variables):
         _Func.update_ainb_editor(variables)
 
     @staticmethod
@@ -190,7 +190,15 @@ class ButtonFunc:
             decom = zstandard.ZstdDecompressor(
                 dict_data=zstandard.ZstdCompressionDict(Sarc.get_zsdic_data(".pack", romfs_path)))
 
-            archive = oead.Sarc(decom.decompress(pathlib.Path(os.path.join(romfs_path + "\\Pack\\Actor", file)).read_bytes()))
+            archive = oead.Sarc(
+                decom.decompress(
+                    pathlib.Path(
+                        os.path.join(
+                            romfs_path + "\\Pack\\Actor", file
+                        )
+                    ).read_bytes()
+                )
+            )
 
             for _file in archive.get_files():
 
@@ -209,22 +217,22 @@ class ButtonFunc:
             toplevel.destroy()
 
     @staticmethod
-    def theme_option_menu_button_command(app, dragAndDropTarget, CodeBox, appearance):
+    def theme_option_menu_button_command(app, drag_and_drop_target, code_box, appearance):
         ctk.set_appearance_mode(appearance.lower())
         app.settings["current_theme"] = appearance.lower()
         Config.overwrite_setting("current_theme", appearance.lower())
 
         # Drag and drop label appearance
         if ctk.get_appearance_mode() == "Dark":
-            dragAndDropTarget.configure(fg_color="#242424")
+            drag_and_drop_target.configure(fg_color="#242424")
         else:
-            dragAndDropTarget.configure(fg_color="#EBEBEB")
+            drag_and_drop_target.configure(fg_color="#EBEBEB")
 
         # Code editor appearance
         if ctk.get_appearance_mode() == "Dark":
-            CodeBox.configure(color_scheme="monokai")
+            code_box.configure(color_scheme="monokai")
         else:
-            CodeBox.configure(color_scheme="ayu-light")
+            code_box.configure(color_scheme="ayu-light")
 
     @staticmethod
     def drag_and_drop_button_command(tabview, variables, event=None):
@@ -244,7 +252,7 @@ class ButtonFunc:
 
         variables["open_file"] = fp.name
 
-        _Func.update_ainb_editor(variables, True)
+        _Func.update_ainb_editor(variables)
         tabview.set("AINB Editor")
 
 
@@ -260,8 +268,10 @@ def main_menu(app):
             messagebox.showinfo("AINB-Toolbox Pop-up", "Please select your romfs folder.")
             romfs_folder = filedialog.askdirectory(title="Select RomFS Folder Path")
             if romfs_folder == "":
-                continue_prompt = messagebox.askyesno("AINB-Toolbox Pop-up",
-                                    "Do you want to continue without a romfs dump?\nThis will most likely cause a lot of errors in the future.")
+                message = """Do you want to continue without a romfs dump?
+This will most likely cause a lot of errors in the future."""
+                continue_prompt = messagebox.askyesno(
+                    "AINB-Toolbox Pop-up", message)
             else:
                 app.settings["romfs_path"] = romfs_folder
                 Config.overwrite_setting("romfs_path", romfs_folder)
@@ -290,7 +300,7 @@ def main_menu(app):
 
     # Creating tabview
     tabview = ctk.CTkTabview(root, height=1000)
-    tabview_command = partial(ButtonFunc.tabview_command, tabview, variables)
+    tabview_command = partial(ButtonFunc.tabview_command, variables)
     tabview.configure(command=tabview_command)
     tabview.add("Home")
     tabview.add("AINB Editor")
@@ -306,7 +316,6 @@ def main_menu(app):
     #                      #    "Home" SECTION    #
     #                      ########################
 
-
     dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
                                      text="➕ \nDrag & Drop Here",
                                      corner_radius=10, wraplength=300)
@@ -316,7 +325,6 @@ def main_menu(app):
         dragAndDropTarget.configure(fg_color="#EBEBEB")
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
-    drop_partial = partial(_Func.drop_file, tabview, variables)
     drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
@@ -404,7 +412,7 @@ def main_menu(app):
     save_ainb_button.place(x=0, y=0)
 
     # Creating export button
-    export_ainb_button_command = partial(ButtonFunc.export_ainb_button_command, variables, CodeBox)
+    export_ainb_button_command = partial(ButtonFunc.export_ainb_button_command, CodeBox)
     export_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Export",
                                        command=export_ainb_button_command)
     export_ainb_button.place(x=150, y=0)
