@@ -79,15 +79,29 @@ def json_to_ainb(input_, mode='d', out_path=None):  # Converts input JSON file t
             return output
 
 
-def ainb_to_yaml(filepath):  # Converts input AINB file to YAML  TODO: Unfinished
-    with open(filepath, 'rb') as file:
-        data = file.read()
-    file = ainb.AINB(data)
-    with open(file.filename + ".yml", 'w', encoding='utf-8') as outfile:
-        yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
+def ainb_to_yaml(input_, mode='d'):  # Converts input AINB file to YAML
+
+    match mode:
+
+        case 'fp':
+
+            with open(input_, 'rb') as file:
+                data = file.read()
+
+            file = ainb.AINB(data)
+
+            with open(file.filename + ".yml", 'w', encoding='utf-8') as outfile:
+                yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
+
+        case 'd':
+
+            file = ainb.AINB(input_)
+
+            with open(file.filename + ".yml", 'w', encoding='utf-8') as outfile:
+                yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
 
 
-def yaml_to_ainb(filepath):  # Converts input YAML file to AINB  TODO: Unfininished
+def yaml_to_ainb(filepath):  # Converts input YAML file to AINB  TODO: Unfinished
     with open(filepath, 'r', encoding='utf-8') as file:
         data = yaml.safe_load(file)
     file = ainb.AINB(data, from_dict=True)
