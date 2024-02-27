@@ -209,15 +209,22 @@ class ButtonFunc:
             toplevel.destroy()
 
     @staticmethod
-    def theme_option_menu_button_command(app, dragAndDropTarget, appearance):
+    def theme_option_menu_button_command(app, dragAndDropTarget, CodeBox, appearance):
         ctk.set_appearance_mode(appearance.lower())
         app.settings["current_theme"] = appearance.lower()
         Config.overwrite_setting("current_theme", appearance.lower())
 
+        # Drag and drop label appearance
         if ctk.get_appearance_mode() == "Dark":
             dragAndDropTarget.configure(fg_color="#242424")
         else:
             dragAndDropTarget.configure(fg_color="#EBEBEB")
+
+        # Code editor appearance
+        if ctk.get_appearance_mode() == "Dark":
+            CodeBox.configure(color_scheme="monokai")
+        else:
+            CodeBox.configure(color_scheme="ayu-light")
 
     @staticmethod
     def drag_and_drop_button_command(tabview, variables, event=None):
@@ -363,11 +370,10 @@ def main_menu(app):
     )
     theme_label.grid(row=1, column=0, padx=20, pady=10)
 
-    theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app, dragAndDropTarget)
+    # Moved command assignment to line
     theme_option_menu = ctk.CTkOptionMenu(
         master=tabview.tab("Settings"),
         values=["Dark", "Light", "System"],
-        command=theme_option_menu_command
     )
     _Func.update_theme_option_menu(theme_option_menu)
     theme_option_menu.grid(row=1, column=1, padx=20, pady=10)
@@ -382,8 +388,12 @@ def main_menu(app):
 
     # Creating and configuring the CodeView
     CodeBox = chlorophyll.CodeView(
-        master=tabview.tab("AINB Editor"), lexer=pygments.lexers.data.JsonLexer, color_scheme="dracula", height=1000,
+        master=tabview.tab("AINB Editor"), lexer=pygments.lexers.data.JsonLexer, height=1000,
     )
+    if ctk.get_appearance_mode().lower() == "dark":
+        CodeBox.configure(color_scheme="monokai")
+    else:
+        CodeBox.configure(color_scheme="ayu-light")
     CodeBox.pack(fill="both", pady=50)
     variables["CodeBox"] = CodeBox
 
@@ -401,6 +411,11 @@ def main_menu(app):
 
     # Updating to ainb_editor
     _Func.update_ainb_editor(variables)
+
+    # SETTINGS MENU STUFF
+    # Assigning theme_option_menu_command
+    theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app, dragAndDropTarget, CodeBox)
+    theme_option_menu.configure(command=theme_option_menu_command)
 
     # Root mainloop
     root.mainloop()
