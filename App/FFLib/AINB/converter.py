@@ -101,12 +101,48 @@ def ainb_to_yaml(input_, mode='d'):  # Converts input AINB file to YAML
                 yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
 
 
-def yaml_to_ainb(filepath):  # Converts input YAML file to AINB  TODO: Unfinished
-    with open(filepath, 'r', encoding='utf-8') as file:
-        data = yaml.safe_load(file)
-    file = ainb.AINB(data, from_dict=True)
-    with open(file.filename + ".ainb", 'wb') as outfile:
-        file.ToBytes(file, outfile)
+def yaml_to_ainb(input_, mode='d'):  # Converts input YAML file to AINB
+
+    match mode:
+
+        case 'fp':
+
+            with open(input_, 'r', encoding='utf-8') as file:
+                data = yaml.safe_load(file)
+
+            file = ainb.AINB(data, from_dict=True)
+
+            temp_dir = tempfile.TemporaryDirectory()
+
+            with open(temp_dir.name + "outfile.ainb", 'wb') as outfile:
+                file.ToBytes(file, outfile)
+
+            with open(temp_dir.name + "outfile.ainb", 'rb') as f_in:
+                output = f_in.read()
+
+            temp_dir.cleanup()
+            return output
+
+        case 'd':
+
+            temp_dir = tempfile.TemporaryDirectory()
+
+            with open(temp_dir.name + 'file.yaml') as f_out:
+                f_out.write(input_)
+
+            with open(temp_dir.name + 'file.yaml', 'r', encoding='utf-8') as file:
+                data = yaml.safe_load(file)
+
+            file = ainb.AINB(data, from_dict=True)
+
+            with open(temp_dir.name + "outfile.ainb", 'wb') as outfile:
+                file.ToBytes(file, outfile)
+
+            with open(temp_dir.name + "outfile.ainb", 'rb') as f_in:
+                output = f_in.read()
+
+            temp_dir.cleanup()
+            return output
 
 
 if __name__ == '__main__':
