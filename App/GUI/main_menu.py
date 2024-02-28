@@ -410,7 +410,7 @@ This will most likely cause a lot of errors in the future."""
     variables["CodeBox"] = CodeBox
 
     # Creating open button
-    open_ainb_button_command = partial(ButtonFunc.open_ainb_button_command)
+    open_ainb_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
     open_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Open",
                                      command=open_ainb_button_command)
     open_ainb_button.place(x=0, y=0)
