@@ -86,6 +86,10 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def open_ainb_button_command():
+        pass  # TODO: Stub
+
+    @staticmethod
     def save_ainb_button_command(variables, code_view):
 
         # Asking out filepath if there is no file
@@ -317,7 +321,7 @@ This will most likely cause a lot of errors in the future."""
     #                      ########################
 
     dragAndDropTarget = ctk.CTkLabel(tabview.tab("Home"), font=("Ariel", 20),
-                                     text="➕ \nDrag & Drop Here",
+                                     text="Click here to open file",
                                      corner_radius=10, wraplength=300)
     if ctk.get_appearance_mode() == "Dark":
         dragAndDropTarget.configure(fg_color="#242424")
@@ -405,17 +409,23 @@ This will most likely cause a lot of errors in the future."""
     CodeBox.pack(fill="both", pady=50)
     variables["CodeBox"] = CodeBox
 
+    # Creating open button
+    open_ainb_button_command = partial(ButtonFunc.open_ainb_button_command)
+    open_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Open",
+                                     command=open_ainb_button_command)
+    open_ainb_button.place(x=0, y=0)
+
     # Creating save button
     save_ainb_button_command = partial(ButtonFunc.save_ainb_button_command, variables, CodeBox)
     save_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Save",
                                      command=save_ainb_button_command)
-    save_ainb_button.place(x=0, y=0)
+    save_ainb_button.place(x=150, y=0)
 
     # Creating export button
     export_ainb_button_command = partial(ButtonFunc.export_ainb_button_command, CodeBox)
     export_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Export",
                                        command=export_ainb_button_command)
-    export_ainb_button.place(x=150, y=0)
+    export_ainb_button.place(x=300, y=0)
 
     # Updating to ainb_editor
     _Func.update_ainb_editor(variables)
