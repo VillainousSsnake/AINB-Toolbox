@@ -86,10 +86,6 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
-    def open_ainb_button_command():
-        pass  # TODO: Stub
-
-    @staticmethod
     def save_ainb_button_command(variables, code_view):
 
         # Asking out filepath if there is no file
