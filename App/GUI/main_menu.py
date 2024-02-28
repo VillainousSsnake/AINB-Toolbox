@@ -87,6 +87,10 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
+    def discord_icon_command():
+        pass  # TODO: Stub
+
+    @staticmethod
     def save_ainb_button_command(variables, code_view):
 
         # Asking out filepath if there is no file
