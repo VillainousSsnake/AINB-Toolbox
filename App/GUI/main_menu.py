@@ -10,6 +10,7 @@ from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
 from tkinter import ttk
+from PIL import Image
 import chlorophyll
 import zstandard
 import os.path
@@ -430,6 +431,23 @@ This will most likely cause a lot of errors in the future."""
     # Assigning theme_option_menu_command
     theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app, dragAndDropTarget, CodeBox)
     theme_option_menu.configure(command=theme_option_menu_command)
+
+    # Discord button
+    discord_icon_path = os.path.join(os.getcwd(), "App", "Tex", "DiscordIcon.png")
+    discord_icon_image = ctk.CTkImage(
+        light_image=Image.open(discord_icon_path),
+        dark_image=Image.open(discord_icon_path),
+        size=(45, 45),
+    )
+    discord_button = ctk.CTkButton(
+        master=tabview.tab("Home"),
+        image=discord_icon_image,
+        text="",
+        fg_color="#2B2B2B",
+        width=1,
+        command=ButtonFunc.discord_icon_command
+    )
+    discord_button.pack(side="left")
 
     # Root mainloop
     root.mainloop()
