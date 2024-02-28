@@ -12,6 +12,7 @@ import pygments.lexers.data
 from tkinter import ttk
 from PIL import Image
 import chlorophyll
+import webbrowser
 import zstandard
 import os.path
 import pathlib
@@ -88,7 +89,7 @@ class _Func:
 class ButtonFunc:
     @staticmethod
     def discord_icon_command():
-        pass  # TODO: Stub
+        webbrowser.open(url="https://discord.gg/GA5qfJ53bK")
 
     @staticmethod
     def save_ainb_button_command(variables, code_view):
