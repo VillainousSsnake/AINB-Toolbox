@@ -1,5 +1,5 @@
 # AINB-Toolbox
-This is an all-in-one app for AINB files. Part of 0x1de NX, to learn more go here: https://villainousssnake.wixsite.com/0x1de-nx
+This is an all-in-one app for AINB files. Part of 0x1de NX, to learn more go here: https://discord.gg/GA5qfJ53bK
 
 I used a modified version of dt-12345's AINB library, so here is a link to his GitHub account: https://github.com/dt-12345
 
