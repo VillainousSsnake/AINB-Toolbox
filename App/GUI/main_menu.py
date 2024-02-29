@@ -94,8 +94,21 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
-    def ainb_to_code_option_menu_button_command(event=None):
-        pass  # TODO: Stub
+    def ainb_to_code_option_menu_button_command(app, event=None):
+
+        print(event)
+
+        match event:
+
+            case "JSON":
+
+                app.settings['ainb_code_format'] = 'JSON'
+                Config.overwrite_setting('ainb_code_format', event)
+
+            case "YAML":
+
+                app.settings['ainb_code_format'] = 'YAML'
+                Config.overwrite_setting('ainb_code_format', event)
 
     @staticmethod
     def save_ainb_button_command(variables, code_view):
@@ -406,7 +419,7 @@ This will most likely cause a lot of errors in the future."""
     )
     ainb_to_code_format_label.grid(row=2, column=0, padx=20, pady=10)
 
-    ainb_to_code_option_menu_command = partial(ButtonFunc.ainb_to_code_option_menu_button_command)
+    ainb_to_code_option_menu_command = partial(ButtonFunc.ainb_to_code_option_menu_button_command, app)
     ainb_to_code_format_option_menu = ctk.CTkOptionMenu(
         master=tabview.tab("Settings"),
         values=["YAML", "JSON"],
