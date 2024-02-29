@@ -33,7 +33,7 @@ supportedFileFormats = (
 # _func class
 class _Func:
     @staticmethod
-    def update_ainb_editor(variables):
+    def update_ainb_editor(variables, app):
 
         if variables["open_file"] is None:
             variables["CodeBox"].delete(0.0, "end")
@@ -42,7 +42,12 @@ class _Func:
         CodeBox = variables["CodeBox"]
         CodeBox.delete(0.0, "end")
         file = AINB(variables["open_file"], 'fp')
-        CodeBox.insert(0.0, file.json)
+        if app.settings["ainb_code_format"] == "JSON":
+            CodeBox.configure(lexer=pygments.lexers.data.JsonLexer)
+            CodeBox.insert(0.0, file.json)
+        elif app.settings["ainb_code_format"] == "YAML":
+            CodeBox.configure(lexer=pygments.lexers.data.YamlLexer)
+            CodeBox.insert(0.0, file.yaml)
 
     @staticmethod
     def focus_in_romfs_entry(romfs_path_label, event=None):
@@ -70,7 +75,7 @@ class _Func:
                 theme_option_menu.set("System")
 
     @staticmethod
-    def drop_file(tabview, variables, event=None):
+    def drop_file(tabview, variables, app, event=None):
         variables["open_file"] = str(event.data[1:len(event.data)-1])
 
         if variables["open_file"] is not None:
@@ -82,7 +87,7 @@ class _Func:
             if continueQuitPopup is False:
                 return 0
 
-        _Func.update_ainb_editor(variables)
+        _Func.update_ainb_editor(variables, app)
         tabview.set("AINB Editor")
 
 
@@ -156,8 +161,8 @@ class ButtonFunc:
         messagebox.showinfo("AINB-Toolbox Pop-up", "Export successful!\nFile Exported to: " + path_out)
 
     @staticmethod
-    def tabview_command(variables):
-        _Func.update_ainb_editor(variables)
+    def tabview_command(variables, app):
+        _Func.update_ainb_editor(variables, app)
 
     @staticmethod
     def romfs_path_browse_button_command(app, romfs_path_entry):
@@ -242,7 +247,7 @@ class ButtonFunc:
             code_box.configure(color_scheme="ayu-light")
 
     @staticmethod
-    def drag_and_drop_button_command(tabview, variables, event=None):
+    def drag_and_drop_button_command(tabview, variables, app, event=None):
 
         fp = filedialog.askopenfile(title="Select a file", filetypes=supportedFileFormats)
 
@@ -259,7 +264,7 @@ class ButtonFunc:
 
         variables["open_file"] = fp.name
 
-        _Func.update_ainb_editor(variables)
+        _Func.update_ainb_editor(variables, app)
         tabview.set("AINB Editor")
 
 
@@ -307,7 +312,7 @@ This will most likely cause a lot of errors in the future."""
 
     # Creating tabview
     tabview = ctk.CTkTabview(root, height=1000)
-    tabview_command = partial(ButtonFunc.tabview_command, variables)
+    tabview_command = partial(ButtonFunc.tabview_command, variables, app)
     tabview.configure(command=tabview_command)
     tabview.add("Home")
     tabview.add("AINB Editor")
@@ -332,7 +337,7 @@ This will most likely cause a lot of errors in the future."""
         dragAndDropTarget.configure(fg_color="#EBEBEB")
     dragAndDropTarget.pack(expand=True, fill=ctk.BOTH, padx=40, pady=40)
 
-    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
+    drag_and_drop_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables, app)
     dragAndDropTarget.bind("<1>", drag_and_drop_button_command)
 
     export_all_ainb_button_partial = partial(ButtonFunc.export_all_ainb_button_command, app.settings["romfs_path"])
@@ -430,7 +435,7 @@ This will most likely cause a lot of errors in the future."""
     variables["CodeBox"] = CodeBox
 
     # Creating open button
-    open_ainb_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables)
+    open_ainb_button_command = partial(ButtonFunc.drag_and_drop_button_command, tabview, variables, app)
     open_ainb_button = ctk.CTkButton(master=tabview.tab("AINB Editor"), text="Open",
                                      command=open_ainb_button_command)
     open_ainb_button.place(x=0, y=0)
@@ -448,7 +453,7 @@ This will most likely cause a lot of errors in the future."""
     export_ainb_button.place(x=300, y=0)
 
     # Updating to ainb_editor
-    _Func.update_ainb_editor(variables)
+    _Func.update_ainb_editor(variables, app)
 
     # SETTINGS MENU STUFF
     # Assigning theme_option_menu_command
