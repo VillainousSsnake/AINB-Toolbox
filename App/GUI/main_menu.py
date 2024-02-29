@@ -385,7 +385,7 @@ This will most likely cause a lot of errors in the future."""
     )
     theme_label.grid(row=1, column=0, padx=20, pady=10)
 
-    # Moved command assignment to line
+    # Moved command assignment to line 437
     theme_option_menu = ctk.CTkOptionMenu(
         master=tabview.tab("Settings"),
         values=["Dark", "Light", "System"],
