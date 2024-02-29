@@ -89,8 +89,8 @@ class _Func:
 # Button func
 class ButtonFunc:
     @staticmethod
-    def discord_icon_command():
-        webbrowser.open(url="https://discord.gg/GA5qfJ53bK")
+    def ainb_to_code_option_menu_button_command(event=None):
+        pass  # TODO: Stub
 
     @staticmethod
     def save_ainb_button_command(variables, code_view):
@@ -392,6 +392,23 @@ This will most likely cause a lot of errors in the future."""
     )
     _Func.update_theme_option_menu(theme_option_menu)
     theme_option_menu.grid(row=1, column=1, padx=20, pady=10)
+
+    # AINB-To-Code Setting
+    ainb_to_code_format_label = ctk.CTkLabel(
+        master=tabview.tab("Settings"),
+        text="AINB-To-Code Format:                                                                       ",
+        corner_radius=5, fg_color="#3B8ED0"
+    )
+    ainb_to_code_format_label.grid(row=2, column=0, padx=20, pady=10)
+
+    ainb_to_code_option_menu_command = partial(ButtonFunc.ainb_to_code_option_menu_button_command)
+    ainb_to_code_format_option_menu = ctk.CTkOptionMenu(
+        master=tabview.tab("Settings"),
+        values=["YAML", "JSON"],
+        command=ainb_to_code_option_menu_command,
+    )
+    ainb_to_code_format_option_menu.set(app.settings["ainb_code_format"])
+    ainb_to_code_format_option_menu.grid(row=2, column=1, padx=20, pady=10)
 
     #
     #
