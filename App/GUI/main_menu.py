@@ -3,12 +3,13 @@
 # Importing dependencies
 from App.FFLib.custom_sarc import Sarc
 from App.AppLib.config import Config
-import customtkinter as ctk
 from App.FFLib.AINB import AINB
 from tkinter import messagebox
 from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
+import customtkinter as ctk
+from tknodesystem import *
 from tkinter import ttk
 from PIL import Image
 import chlorophyll
@@ -436,23 +437,6 @@ This will most likely cause a lot of errors in the future."""
     # Assigning theme_option_menu_command
     theme_option_menu_command = partial(ButtonFunc.theme_option_menu_button_command, app, dragAndDropTarget, CodeBox)
     theme_option_menu.configure(command=theme_option_menu_command)
-
-    # Discord button
-    discord_icon_path = os.path.join(os.getcwd(), "App", "Tex", "DiscordIcon.png")
-    discord_icon_image = ctk.CTkImage(
-        light_image=Image.open(discord_icon_path),
-        dark_image=Image.open(discord_icon_path),
-        size=(45, 45),
-    )
-    discord_button = ctk.CTkButton(
-        master=tabview.tab("Home"),
-        image=discord_icon_image,
-        text="",
-        fg_color="#2B2B2B",
-        width=1,
-        command=ButtonFunc.discord_icon_command
-    )
-    discord_button.pack(side="left")
 
     # Root mainloop
     root.mainloop()
