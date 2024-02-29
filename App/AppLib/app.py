@@ -12,4 +12,5 @@ class App:
         self.settings = {
             "current_theme": Config.get_setting("current_theme"),
             "romfs_path": Config.get_setting("romfs_path"),
+            "ainb_edit_format": Config.get_setting("ainb_edit_format"),
         }
