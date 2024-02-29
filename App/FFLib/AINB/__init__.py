@@ -12,6 +12,7 @@ class AINB:
 
                 self.data = input_
                 self.json = conv.ainb_to_json(input_, 'd')
+                self.yaml = conv.ainb_to_yaml(input_, 'd')
 
             case 'fp':
 
@@ -19,6 +20,7 @@ class AINB:
                     self.data = f_in.read()
 
                 self.json = conv.ainb_to_json(self.data, 'd')
+                self.yaml = conv.ainb_to_yaml(self.data, 'd')
 
     @staticmethod
     def json_to_ainb(json_data):
