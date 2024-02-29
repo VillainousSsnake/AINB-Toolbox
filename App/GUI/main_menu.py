@@ -203,9 +203,9 @@ class ButtonFunc:
 
         progressbar = ttk.Progressbar(master=toplevel, orient='horizontal', mode='determinate', length=200)
         progressbar.pack(side="top")
-        progressbar.start()
         progressLabel = ctk.CTkLabel(master=toplevel, text="0%")
         progressLabel.pack(side="top")
+        progressbar.start(50)
 
         if not os.path.exists(output_folder + "/AI"):
             os.mkdir(output_folder + "\\AI")
@@ -233,13 +233,14 @@ class ButtonFunc:
                         outfile.write(bytes(_file.data))
 
                     counter += 1
-                    progressbar.step(1)
+                    progressbar.step()
                     progressLabel.configure(text=str(counter / 131.42)[:4] + "%")
                     toplevel.update()
 
-            messagebox.showinfo("AINB-Toolbox Pop-up",
-                                "Extraction complete!\nExtracted to: " + output_folder)
-            toplevel.destroy()
+        # End
+        messagebox.showinfo("AINB-Toolbox Pop-up",
+                            "Extraction complete!\nExtracted to: " + output_folder)
+        toplevel.destroy()
 
     @staticmethod
     def theme_option_menu_button_command(app, drag_and_drop_target, code_box, appearance):
