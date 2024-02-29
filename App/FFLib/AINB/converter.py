@@ -83,22 +83,21 @@ def ainb_to_yaml(input_, mode='d'):  # Converts input AINB file to YAML
 
     match mode:
 
-        case 'fp':
-
-            with open(input_, 'rb') as file:
-                data = file.read()
-
-            file = ainb.AINB(data)
-
-            with open(file.filename + ".yml", 'w', encoding='utf-8') as outfile:
-                yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
-
         case 'd':
 
             file = ainb.AINB(input_)
 
-            with open(file.filename + ".yml", 'w', encoding='utf-8') as outfile:
+            temp_dir = tempfile.TemporaryDirectory()
+
+            with open(temp_dir.name + "file.yml", 'w', encoding='utf-8') as outfile:
                 yaml.dump(file.output_dict, outfile, sort_keys=False, allow_unicode=True, encoding='utf-8')
+
+            with open(temp_dir.name + "file.yml", 'r', encoding='utf-8') as f_in:
+                output = f_in.read()
+
+            temp_dir.cleanup()
+
+            return output
 
 
 def yaml_to_ainb(input_, mode='d'):  # Converts input YAML file to AINB
