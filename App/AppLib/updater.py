@@ -21,3 +21,8 @@ class Updater:
             return False
 
         return True
+
+    @staticmethod
+    def update_to_latest():
+
+        pass  # TODO: Stub
