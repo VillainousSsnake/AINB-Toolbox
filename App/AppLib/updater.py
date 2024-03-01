@@ -6,7 +6,8 @@ import webbrowser
 
 
 # Creating global vars
-UpdateTagInt = 3
+UpdateTagIntGlobal = 3
+CUrrentVersionGlobal = "0.3.0"
 
 
 class Updater:
@@ -18,7 +19,7 @@ class Updater:
         repo = github_controller.get_repo("VillainousSsnake/AINB-Toolbox")
         release_tags = repo.get_releases().totalCount
 
-        if UpdateTagInt < release_tags:
+        if UpdateTagIntGlobal < release_tags:
             return False
 
         return True
@@ -27,3 +28,7 @@ class Updater:
     def update_to_latest():
 
         webbrowser.open(url="https://github.com/VillainousSsnake/AINB-Toolbox/releases/")
+
+    @staticmethod
+    def get_current_version():
+        return CUrrentVersionGlobal
