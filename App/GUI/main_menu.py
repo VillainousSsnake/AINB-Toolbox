@@ -9,11 +9,8 @@ from tkinter import filedialog
 from functools import partial
 import pygments.lexers.data
 import customtkinter as ctk
-from tknodesystem import *
 from tkinter import ttk
-from PIL import Image
 import chlorophyll
-import webbrowser
 import zstandard
 import os.path
 import pathlib
@@ -32,6 +29,20 @@ supportedFileFormats = (
 
 # _func class
 class _Func:
+    @staticmethod
+    def font_size_entry_return_command(app, font_size_label, font_size_entry, event=None):
+        font_size_label.configure(
+            text="Font Size:                                                                                             "
+        )
+        app.settings["font_size"] = font_size_entry.get()
+        Config.overwrite_setting("font_size", font_size_entry.get())
+
+    @staticmethod
+    def font_size_entry_keys_command(app, font_size_label, event=None):
+        font_size_label.configure(
+            text="Font Size*:                                                                                            "
+        )
+
     @staticmethod
     def update_ainb_editor(variables, app):
 
@@ -429,6 +440,22 @@ This will most likely cause a lot of errors in the future."""
     )
     ainb_to_code_format_option_menu.set(app.settings["ainb_code_format"])
     ainb_to_code_format_option_menu.grid(row=2, column=1, padx=20, pady=10)
+
+    # Font size setting
+    font_size_label = ctk.CTkLabel(
+        master=tabview.tab("Settings"),
+        text="Font Size:                                                                                             ",
+        corner_radius=5, fg_color="#3B8ED0"
+    )
+    font_size_label.grid(row=3, column=0, padx=20, pady=10)
+
+    font_size_entry = ctk.CTkEntry(master=tabview.tab("Settings"))
+    font_size_entry.insert("0", app.settings["font_size"])
+    font_size_entry.grid(row=3, column=1, padx=20, pady=10)
+    font_size_entry_keys_command = partial(_Func.font_size_entry_keys_command, app, font_size_label)
+    font_size_entry_return_command = partial(_Func.font_size_entry_return_command, app, font_size_label, font_size_entry)
+    font_size_entry.bind("<Key>", font_size_entry_keys_command)
+    font_size_entry.bind("<Return>", font_size_entry_return_command)
 
     #
     #
