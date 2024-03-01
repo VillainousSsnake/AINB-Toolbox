@@ -7,7 +7,7 @@ import webbrowser
 
 # Creating global vars
 UpdateTagIntGlobal = 3
-CUrrentVersionGlobal = "Alpha v0.3.0"
+CurrentVersionGlobal = "Alpha v0.3.0"
 
 
 class Updater:
@@ -31,4 +31,4 @@ class Updater:
 
     @staticmethod
     def get_current_version():
-        return CUrrentVersionGlobal
+        return CurrentVersionGlobal
