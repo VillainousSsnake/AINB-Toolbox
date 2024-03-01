@@ -49,6 +49,7 @@ class _Func:
     def update_ainb_editor(variables, app):
 
         if variables["open_file"] is None:
+            variables["CodeBox"].configure(font=("monospace", app.settings["font_size"]))
             variables["CodeBox"].delete(0.0, "end")
             return 0
 
