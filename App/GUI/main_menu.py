@@ -31,16 +31,18 @@ supportedFileFormats = (
 class _Func:
     @staticmethod
     def font_size_entry_return_command(app, font_size_label, font_size_entry, event=None):
+        Text = "Font Size                                                                                              "
         font_size_label.configure(
-            text="Font Size:                                                                                             "
+            text=Text
         )
         app.settings["font_size"] = font_size_entry.get()
         Config.overwrite_setting("font_size", font_size_entry.get())
 
     @staticmethod
     def font_size_entry_keys_command(app, font_size_label, event=None):
+        Text = "Font Size*                                                                                             "
         font_size_label.configure(
-            text="Font Size*:                                                                                            "
+            text=Text
         )
 
     @staticmethod
@@ -427,7 +429,7 @@ This will most likely cause a lot of errors in the future."""
     # AINB-To-Code Setting
     ainb_to_code_format_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
-        text="AINB-To-Code Format:                                                                       ",
+        text="AINB-To-Code Format                                                                        ",
         corner_radius=5, fg_color="#3B8ED0"
     )
     ainb_to_code_format_label.grid(row=2, column=0, padx=20, pady=10)
@@ -444,7 +446,7 @@ This will most likely cause a lot of errors in the future."""
     # Font size setting
     font_size_label = ctk.CTkLabel(
         master=tabview.tab("Settings"),
-        text="Font Size:                                                                                             ",
+        text="Font Size                                                                                              ",
         corner_radius=5, fg_color="#3B8ED0"
     )
     font_size_label.grid(row=3, column=0, padx=20, pady=10)
