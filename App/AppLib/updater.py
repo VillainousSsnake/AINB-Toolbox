@@ -7,7 +7,7 @@ import webbrowser
 
 # Creating global vars
 UpdateTagIntGlobal = 3
-CUrrentVersionGlobal = "0.3.0"
+CUrrentVersionGlobal = "Alpha v0.3.0"
 
 
 class Updater:
