@@ -17,6 +17,9 @@ I used a modified version of dt-12345's AINB library, so here is a link to his G
 
 ## Info
 If you have any questions or problems, or you just want to show your support for AINB-Toolbox and 0x1de NX, please join the 0x1de NX Discord server and take a look at the website too!
+
 Discord: https://discord.gg/GA5qfJ53bK
+
 GameBanana: https://gamebanana.com/wips/updates/82711
+
 GitHub: https://github.com/VillainousSsnake/0x1de-NX
