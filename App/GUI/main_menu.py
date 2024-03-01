@@ -40,6 +40,7 @@ class _Func:
             return 0
 
         CodeBox = variables["CodeBox"]
+        CodeBox.configure(font=("monospace", app.settings["font_size"]))
         CodeBox.delete(0.0, "end")
         file = AINB(variables["open_file"], 'fp')
         if app.settings["ainb_code_format"] == "JSON":
