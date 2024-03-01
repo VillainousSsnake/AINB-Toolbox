@@ -13,4 +13,5 @@ class App:
             "current_theme": Config.get_setting("current_theme"),
             "romfs_path": Config.get_setting("romfs_path"),
             "ainb_code_format": Config.get_setting("ainb_code_format"),
+            "font_size": Config.get_setting("font_size"),
         }
