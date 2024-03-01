@@ -2,6 +2,7 @@
 
 # Importing dependencies
 from App.FFLib.custom_sarc import Sarc
+from App.AppLib.updater import Updater
 from App.AppLib.config import Config
 from App.FFLib.AINB import AINB
 from tkinter import messagebox
@@ -299,6 +300,14 @@ class ButtonFunc:
 
 # main_menu function
 def main_menu(app):
+
+    if not Updater.is_latest_update():
+        update_popup = messagebox.askyesno(
+            "Outdated Version",
+            "You are using an outdated version of AINB-Toolbox!\nDo you want to download the latest release?")
+
+        if update_popup:
+            Updater.update_to_latest()
 
     # Detecting if the romfs_path is None
     if app.settings["romfs_path"] is None:
