@@ -2,6 +2,7 @@
 
 # Importing libraries and modules
 from github import Github
+import webbrowser
 
 
 # Creating global vars
@@ -25,4 +26,4 @@ class Updater:
     @staticmethod
     def update_to_latest():
 
-        pass  # TODO: Stub
+        webbrowser.open(url="https://github.com/VillainousSsnake/AINB-Toolbox/releases/")
