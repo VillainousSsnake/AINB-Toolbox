@@ -329,7 +329,7 @@ This will most likely cause a lot of errors in the future."""
 
     # Creating root window
     root = ctk.CTk()
-    root.title("TotkRomfsFileEditor (TRFE) - VillainousSsnake - " + Updater.get_current_version())
+    root.title("AINB-Toolbox - VillainousSsnake - " + Updater.get_current_version())
     root.geometry("850x525+200+200")
 
     # Defining on_close function
