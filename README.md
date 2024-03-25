@@ -16,7 +16,7 @@ I used a modified version of dt-12345's AINB library, so here is a link to his G
 - *AINB File Editor (NODE-LIKE)*: This will edit AINB files through a more user-friendly UI and it will use the JSON code to create boxes of nodes and commands so that you can add, delete, or create them.
 
 ## Info
-If you have any questions or problems, or you just want to show your support for AINB-Toolbox and 0x1de NX, please join the 0x1de NX Discord server and take a look at the website too!
+If you have any questions or problems, or you just want to show your support for AINB-Toolbox and 0x1de NX, please join the 0x1de NX Discord server and take a look at the GameBanana too!
 
 Discord: https://discord.gg/GA5qfJ53bK
 
