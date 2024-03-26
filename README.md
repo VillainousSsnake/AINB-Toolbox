@@ -20,6 +20,6 @@ If you have any questions or problems, or you just want to show your support for
 
 Discord: https://discord.gg/GA5qfJ53bK
 
-GameBanana: https://gamebanana.com/wips/updates/82711
+GameBanana: https://gamebanana.com/wips/82711
 
 GitHub: https://github.com/VillainousSsnake/0x1de-NX
