@@ -3,7 +3,7 @@ This is an all-in-one app for AINB files. Part of 0x1de NX, to learn more go her
 
 I used a modified version of dt-12345's AINB library, so here is a link to his GitHub account: https://github.com/dt-12345
 
-## Latest release: (0.2.0)
+## Latest release: (0.3.0)
 [Click here to download the latest release](https://github.com/VillainousSsnake/AINB-Toolbox/releases)
 
 ## Features
